@@ -50,21 +50,21 @@ for f in range(len(dff.loc[:,0])):
         #当前排列进行遍历
         for j in range(comLen):
         #对当前数组中的数进行赋值
-            
-            
+
+            #print(combins[j])
             x_train=np.zeros(shape=(len(X_train[:,0]),i))
             x_test=np.zeros(shape=(len(X_test[:,0]),i))
             for k in range(len(combins[j])):
-            #print(combins[j])
-            #print(len(X_train[:,combins[j][k]]))
-            #for m in range(len(X_train[:,0])):
-            
-            #print(X_train[m,combins[j][k]])
+
+                #print(len(X_train[:,combins[j][k]]))
+                #for m in range(len(X_train[:,0])):
+                    #print(X_train[m,combins[j][k]])
+
                 x_train[:,k]=X_train[:,combins[j][k]]
                 x_test[:,k]=X_test[:,combins[j][k]]
                 
             clf = LogisticRegression(penalty='l2',dual=False,tol=0.0001,C=1.0,fit_intercept=True,intercept_scaling=1,
-                                     class_weight="balanced").fit(x_train, y_train)  
+                                     class_weight="balanced").fit(x_train, y_train)
             a=clf.predict(x_test)
             s=0
             for ii in range(0,len(y_test)):
@@ -79,9 +79,9 @@ for f in range(len(dff.loc[:,0])):
             accuracy.append(s/len(y_test))
             del(x_train)
             del(x_test)
-    outputResult={'组合':combination,
-                      '准确率':accuracy}
+    outputResult={'组合':combination,'准确率':accuracy}
     dfff=pd.DataFrame(outputResult)
-    dfff.to_csv('result/%sresult.csv'%dff.iloc[f,0],encoding='gbk',index=False)    
+    dfff.to_csv('result/%sresult.csv'%dff.iloc[f,0],encoding='gbk',index=False)
     print(suMM)
+print("The end")
         

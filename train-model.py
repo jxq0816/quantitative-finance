@@ -37,17 +37,15 @@ for f in range(len(dff.loc[:,0])):
 
     com=len(X_train[0])
     #排列组合的个数统计
-    suMM=0
+
     print("品种%s"%dff.iloc[f,0])
-    #排列组合
-    combination=[]
-    accuracy=[]
+
     outputResult={}
+    hashMap = {}
     #排列组合遍历
     for i in range(1,com+1):
         combins = [c for c in  combinations(range(com), i)]
         comLen=len(combins)
-        suMM+=comLen
        
         #当前排列进行遍历
         for j in range(comLen):
@@ -71,18 +69,17 @@ for f in range(len(dff.loc[:,0])):
             for ii in range(0,len(y_test)):
                 if a[ii]==y_test[ii]:
                     s=s+1
-                
-            #print ("组合：",combins[j])
-            #print(s/len(y_test))
-            #print('-----')
-           
-            combination.append(combins[j])
-            accuracy.append(s/len(y_test))
+
+            rate = s / len(y_test)
+            # 将combins[j]：rate 存入hashMap
+            hashMap[combins[j]] = rate
             del(x_train)
             del(x_test)
-    outputResult={'组合':combination,'准确率':accuracy}
-    rs=pd.DataFrame(outputResult)
+    #转为数组
+    items = hashMap.items()
+    #数组排序
+    sortedItems=sorted(items, key=lambda x:x[1], reverse=True)
+    #print(sortedItems)
+    rs=pd.DataFrame(sortedItems)
     rs.to_csv('result/%sresult.csv'%dff.iloc[f,0],encoding='gbk',index=False)
-    #print(suMM)
 print("The end")
-        

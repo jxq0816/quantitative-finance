@@ -9,11 +9,11 @@ import numpy as np
 from sklearn.cross_validation import train_test_split
 import csv 
 from itertools import combinations
-from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 
 dff = pd.read_csv("data-text/sc.txt",header=None)
 dff.sort_index(inplace=True)
-
+#文件遍历
 for f in range(len(dff.loc[:,0])):
     with open(r'index/%s.csv'%dff.iloc[f,0],encoding="gbk") as csvfile:
          readCSV = csv.reader(csvfile, delimiter=',')  
@@ -36,12 +36,14 @@ for f in range(len(dff.loc[:,0])):
     x_test=np.array(x_test)
 
     com=len(X_train[0])
+    #排列组合的个数统计
     suMM=0
     print("品种%s"%dff.iloc[f,0])
     #排列组合
     combination=[]
     accuracy=[]
     outputResult={}
+    #排列组合遍历
     for i in range(1,com+1):
         combins = [c for c in  combinations(range(com), i)]
         comLen=len(combins)
@@ -62,9 +64,8 @@ for f in range(len(dff.loc[:,0])):
 
                 x_train[:,k]=X_train[:,combins[j][k]]
                 x_test[:,k]=X_test[:,combins[j][k]]
-                
-            clf = LogisticRegression(penalty='l2',dual=False,tol=0.0001,C=1.0,fit_intercept=True,intercept_scaling=1,
-                                     class_weight="balanced").fit(x_train, y_train)
+
+            clf = DecisionTreeClassifier().fit(x_train, y_train)
             a=clf.predict(x_test)
             s=0
             for ii in range(0,len(y_test)):
@@ -80,8 +81,8 @@ for f in range(len(dff.loc[:,0])):
             del(x_train)
             del(x_test)
     outputResult={'组合':combination,'准确率':accuracy}
-    dfff=pd.DataFrame(outputResult)
-    dfff.to_csv('result/%sresult.csv'%dff.iloc[f,0],encoding='gbk',index=False)
-    print(suMM)
+    rs=pd.DataFrame(outputResult)
+    rs.to_csv('result/%sresult.csv'%dff.iloc[f,0],encoding='gbk',index=False)
+    #print(suMM)
 print("The end")
         

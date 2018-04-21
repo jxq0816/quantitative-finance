@@ -104,9 +104,10 @@ def combinationFunction(data_source_path,rs_path,function_name):
                 print("测试数据个数%s" %test_len)
                 print("命中数据个数%s" %s)
                 rate = s / test_len
-                print("命中比例%s" %rate)
-                # 将combins[j]：rate 存入hashMap
-                hashMap[combins[j]] = rate
+                if rate >= 0.75:
+                    print("命中比例%s" %rate)
+                    # 将combins[j]：rate 存入hashMap
+                    hashMap[combins[j]] = rate
                 del (x_train)
                 del (x_test)
                 #end of j

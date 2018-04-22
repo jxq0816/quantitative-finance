@@ -16,7 +16,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 
 
-def combinationFunction(data_source_path,rs_path,function_name):
+def combinationFunction(data_source_path,rs_path,function_name,test_size_param):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历
@@ -36,7 +36,7 @@ def combinationFunction(data_source_path,rs_path,function_name):
                 y.append(float(row[-1]))
         #划为数组
         X = np.array(X)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size_param)
         #训练集X
         X_train = np.array(X_train)
         #训练集Y

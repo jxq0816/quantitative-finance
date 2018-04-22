@@ -16,13 +16,13 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 
 
-def combinationFunction(data_source_path,rs_path,function_name,test_size_param):
+def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历
     for f in range(len(dff.loc[:, 0])):
         # 读取文件
-        with open(r'index/%s.csv' % dff.iloc[f, 0]) as csvfile:
+        with open(index_path+'/%s.csv' % dff.iloc[f, 0]) as csvfile:
             # 分割
             readCSV = csv.reader(csvfile, delimiter=',')
             # 获得迭代器的下一个项目

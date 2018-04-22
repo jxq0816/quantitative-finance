@@ -1,8 +1,11 @@
 # -- coding: UTF-8 --
 
 import cueb
+cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-bagging','BaggingClassifier',0.75)
+#极端随机树
+#cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-extra-tree','ExtraTreesClassifier',0.75)
 #随机森林
-cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-random-forest','RandomForestClassifier',0.75)
+#cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-random-forest','RandomForestClassifier',0.75)
 #决策树
 #cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-decision-tree','DecisionTreeClassifier',0.75)
 #KNN

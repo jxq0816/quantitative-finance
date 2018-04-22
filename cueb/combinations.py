@@ -7,7 +7,7 @@ Created on Thu Apr 12 10:01:34 2018
 from __future__ import division
 import pandas as pd
 import numpy as np
-from sklearn.cross_validation import train_test_split
+from  sklearn.model_selection import train_test_split
 import csv
 from itertools import combinations
 from sklearn.tree import DecisionTreeClassifier

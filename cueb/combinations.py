@@ -14,7 +14,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
-
+from sklearn.ensemble import RandomForestClassifier
 
 def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param):
     dff = pd.read_csv(data_source_path, header=None)
@@ -91,6 +91,8 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
                     clf = GaussianNB().fit(x_train, y_train)
                 if(function_name == 'LogisticRegression'):
                     clf = LogisticRegression().fit(x_train, y_train)
+                if (function_name == 'RandomForestClassifier'):
+                    clf = RandomForestClassifier().fit(x_train, y_train)
 
                 a = clf.predict(x_test)
 

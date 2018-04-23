@@ -2,7 +2,7 @@
 """
 Created on Thu Apr 12 10:01:34 2018
 
-@author: jiangxingqi
+@author:
 """
 from __future__ import division
 import pandas as pd
@@ -18,7 +18,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import BaggingClassifier
 
-def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param):
+def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param,hit_rate):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历
@@ -112,7 +112,7 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
                 print("测试数据个数%s" %test_len)
                 print("命中数据个数%s" %s)
                 rate = s / test_len
-                if rate >= 0.75:
+                if rate >= hit_rate:
                     print("命中比例%s" %rate)
                     # 将combins[j]：rate 存入hashMap
                     hashMap[combins[j]] = rate

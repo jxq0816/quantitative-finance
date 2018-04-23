@@ -8,7 +8,7 @@ from scipy.stats import norm
 import pandas as pd
 import numpy as np
 
-dff = pd.read_csv("data-text/variety.txt", encoding='gbk', header=None)
+dff = pd.read_csv("data-text/sc.txt", encoding='gbk', header=None)
 dff.sort_index(inplace=True)
 
 for i in range(len(dff.loc[:, 0])):

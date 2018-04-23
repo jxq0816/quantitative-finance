@@ -1,7 +1,7 @@
 # -- coding: UTF-8 --
 
 import cueb
-cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-bagging','BaggingClassifier',0.75)
+cueb.combinations.combinationFunction('data-text/source.txt','index','result/rs-bagging','BaggingClassifier',0.3,0.75)
 #极端随机树
 #cueb.combinations.combinationFunction('data-text/sc.txt','index','result/rs-extra-tree','ExtraTreesClassifier',0.75)
 #随机森林

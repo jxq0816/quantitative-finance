@@ -8,7 +8,9 @@ from scipy.stats import norm
 import pandas as pd
 import numpy as np
 
-dff = pd.read_csv("data-text/sc.txt", encoding='gbk', header=None)
+# step 2:数据标准化
+
+dff = pd.read_csv("source/variety.txt", encoding='gbk', header=None)
 dff.sort_index(inplace=True)
 
 for i in range(len(dff.loc[:, 0])):

@@ -2,12 +2,12 @@
 """
 Created on Thu Apr 12 10:01:34 2018
 
-@author:
+@author:王钊
 """
 from __future__ import division
 import pandas as pd
 import numpy as np
-from  sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 import csv
 from itertools import combinations
 from sklearn.tree import DecisionTreeClassifier
@@ -18,6 +18,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.ensemble import BaggingClassifier
 
+'''
+data_source_path:数据源文件路径
+index_path：指标文件夹路径
+rs_path：结果集存储文件夹路径
+function_name：所调用的训练方法
+test_size_param:测试数据所占百分比
+hit_rate：命中率过滤条件
+'''
 def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param,hit_rate):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
@@ -34,7 +42,7 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
             for row in readCSV:
                 # 读取指标到X
                 X.append(np.array(row[0:len(row[:]) - 1]))
-                # 读取标签到
+                # 读取标签到y
                 y.append(float(row[-1]))
         #划为数组
         X = np.array(X)
@@ -56,7 +64,7 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
         print("\n")
         print("处理%s.csv" % dff.iloc[f, 0])
         print("指标个数:"+str(index_len))
-        hashMap = {}
+        result = {}
         # 排列组合遍历
         for i in range(1, index_len + 1):
             # 生成集合个数为i的组合
@@ -115,7 +123,7 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
                 if rate >= hit_rate:
                     print("命中比例%s" %rate)
                     # 将combins[j]：rate 存入hashMap
-                    hashMap[combins[j]] = rate
+                    result[combins[j]] = rate
                 del (x_train)
                 del (x_test)
                 #end of j
@@ -123,11 +131,11 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
             #end of i
             #break
         # 转为数组
-        items = hashMap.items()
+        items = result.items()
         # 数组排序
         sortedItems = sorted(items, key=lambda x: x[1], reverse=True)
         # print(sortedItems)
-        rs = pd.DataFrame(sortedItems)
-        rs.to_csv(rs_path+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
+        sorted_rs = pd.DataFrame(sortedItems)
+        sorted_rs.to_csv(rs_path+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
         #end of f
     print("The end")

@@ -8,8 +8,10 @@ Created on Thu Apr 12 08:23:53 2018
 import pandas as pd
 import numpy as np
 
+#step 1：text ---> csv
 
-dff = pd.read_csv("data-text/sc.txt",header=None)
+
+dff = pd.read_csv("source/variety.txt",header=None)
 dff.sort_index(inplace=True)
 
 #print(dff)

@@ -1,2 +1,2 @@
 import cueb
-cueb.standardization.standardizationFunction('data-text/sc.txt','data-csv','stand')
+cueb.standardization.standardizationFunction('source/variety.txt','data-csv','stand')

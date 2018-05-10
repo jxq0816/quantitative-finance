@@ -6,8 +6,12 @@ Created on Thu Apr 12 09:47:10 2018
 """
 from scipy.stats import norm
 import pandas as pd
-import numpy as np
 
+'''
+code_table_path: 码表文件路径
+data_stand_path：数据标准化文件夹路径
+data_csv_path：csv文件夹
+'''
 def standardizationFunction(code_table_path,data_csv_path,stand_path):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)

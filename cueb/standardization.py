@@ -46,8 +46,8 @@ def standardizationFunction(code_table_path,data_csv_path,stand_path):
                 df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
 
         def changeOfInventory(Name1):
-            df['chicagliang1'] = df.loc[:, Name1].shift(1)
-            df['chicangliangbianhua'] = df.loc[:, Name1] - df.loc[:, 'chicagliang1']
+            df['chicangliang1'] = df.loc[:, Name1].shift(1)
+            df['chicangliangbianhua'] = df.loc[:, Name1] - df.loc[:, 'chicangliang1']
 
         # 资金变动=持仓量*今日收盘价
         def movementOfFunds(Name1, Name2):
@@ -86,28 +86,51 @@ def standardizationFunction(code_table_path,data_csv_path,stand_path):
             df[Name2] = (N_std - N_mean) / N_std
 
         # changeOfInventory('持仓量')
+        # 涨跌（收盘价）前收盘
         upAndDownClose('zhangdie_shoupanjia', 'qianshoupan')
+        # '涨跌(收盘价)', '收盘价'
         contributionPrice('zhangdie_shoupanjia', 'shoupanjia')
+        # '持仓量变化', '收盘价'
         movementOfFunds('chicangliangbianhua', 'shoupanjia')
+        # '涨跌(结算价)', '前结算价'
         settlementPriceFluctuation('zhangdie_jiesuanjia', 'qianjiesuanjia')
+        #开盘价
         norm_NM("kaipanjia")
+        #最高价
         norm_NM("zuigaojia")
+        #最低价
         norm_NM("zuidijia")
-        norm_NM("zuidijia")
+        #收盘价
+        norm_NM("shoupanjia")
+        #前收盘
         norm_NM("qianshoupan")
+        #前结算价
         norm_NM("qianjiesuanjia")
+        #结算价
         norm_NM("jiesuanjia")
-
+        #收盘价
         MA(ma_list, 'shoupanjia')
+        #涨跌幅(结算价)
         norm_NM('zhangdiefu_jiesuanjia')
+        #涨跌幅(收盘价)
         norm_NM('zhangdiefu_shoupanjia')
+        #持仓量变化
         norm_NM('chicangliangbianhua')
+        #资金变动
         norm_NM('zijinbiandong')
+        #价格变动贡献度
         norm_NM('jiagebiandonggongxiandu')
+        #收盘价 前收盘
         classify('shoupanjia', 'qianshoupan')
-
+        # 合约 日期 前收盘 开盘价 最高价 最低价 收盘价 成交量
+        #  成交额 成交笔数 涨跌(收盘价)
+        # 成交金额', '涨跌(收盘价),'均价', '持仓量', '前结算价', '结算价',
+        # '涨跌(结算价)', '涨跌幅(结算价)'
+        # '最近交易日期', '市场最近交易日', 'MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60',
+        # '持仓量变化', '资金变动',
+        # '价格变动贡献度', '分类'
         df = df.loc[:,
-             ['heyue', 'riqi', 'qianshoupan', 'kaipanjia', 'zuigaojia', 'zuidijia', 'shoupanjia', 'chengjiaoliang',
+             ['heyue', 'riqi','qianshoupan', 'kaipanjia', 'zuigaojia', 'zuidijia', 'shoupanjia', 'chengjiaoliang',
               'chengjiaoe', 'chengjiaobishu', 'zhangdie_shoupanjia',
               'zhangdiefu_shoupanjia', 'zhengfu_shoupanjia', 'junjia', 'chicangliang', 'qianjiesuanjia', 'jiesuanjia',
               'zhangdie_jiesuanjia', 'zhangdiefu_jiesuanjia',

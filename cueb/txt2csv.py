@@ -28,12 +28,12 @@ def txt2csvFunction(data_source_path,data_text_path,data_csv_path):
         #print(dff[i])
 
         # 从左到右对列进行命名
-        df = pd.read_csv(data_text_path+'/%s.txt' % dff.iloc[i, 0], parse_dates=True, names=['合约', '日期', '前收盘', '开盘价',
-                                                                                  '最高价', '最低价', '收盘价', '成交量', '成交额',
-                                                                                  '成交笔数', '涨跌(收盘价)', '涨跌幅(收盘价)',
-                                                                                  '振幅(收盘价)', '均价', '持仓量', '持仓量变化',
-                                                                                  '前结算价', '结算价', '涨跌(结算价)', '涨跌幅(结算价)',
-                                                                                  '最近交易日期', '市场最近交易日'])
+        df = pd.read_csv(data_text_path+'/%s.txt' % dff.iloc[i, 0], parse_dates=True, names=['heyue', 'riqi', 'qianshoupan', 'kaipanjia',
+                                                                                  'zuigaojia', 'zuidijia', 'shoupanjia', 'chengjiaoliang', 'chengjiaoe',
+                                                                                  'chengjiaobishu', 'zhangdie_shoupanjia', 'zhangdiefu_shoupanjia',
+                                                                                  'zhengfu_shoupanjia', 'junjia', 'chicangliang', 'chicangliangbianhua',
+                                                                                  'qianjiesuanjia', 'jiesuanjia', 'zhangdie_jiesuanjia', 'zhangdiefu_jiesuanjia',
+                                                                                  'zuijinjiaoyiriqi', 'shichangzuijinjiaoyiri'])
         df.sort_index(inplace=True)
         #print(df)
         df = df.replace('None', 0)

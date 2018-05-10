@@ -101,7 +101,7 @@ for i in range(len(dff.loc[:, 0])):
     norm_NM("kaipanjia")
     norm_NM("zuigaojia")
     norm_NM("zuidijia")
-    norm_NM("zuidijia")
+    norm_NM("shoupanjia")
     norm_NM("qianshoupan")
     norm_NM("qianjiesuanjia")
     norm_NM("jiesuanjia")

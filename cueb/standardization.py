@@ -8,14 +8,14 @@ from scipy.stats import norm
 import pandas as pd
 import numpy as np
 
-def standardizationFunction(data_text_path,data_csv_path,stand_path):
-    dff = pd.read_csv("source/variety.txt", encoding='gbk', header=None)
+def standardizationFunction(code_table_path,data_csv_path,stand_path):
+    dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
 
     for i in range(len(dff.loc[:, 0])):
         # dff=np.array(dff)
         # print(dff[i])
-        df = pd.read_csv('data-csv/%s.csv' % dff.iloc[i, 0], encoding='gbk')
+        df = pd.read_csv(data_csv_path+'/%s.csv' % dff.iloc[i, 0], encoding='gbk')
         df.sort_index(inplace=True)
 
         # df=df.replace('None',0)
@@ -42,33 +42,33 @@ def standardizationFunction(data_text_path,data_csv_path,stand_path):
                 df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
 
         def changeOfInventory(Name1):
-            df['持仓量1'] = df.loc[:, Name1].shift(1)
-            df['持仓量变化'] = df.loc[:, Name1] - df.loc[:, '持仓量1']
+            df['chicagliang1'] = df.loc[:, Name1].shift(1)
+            df['chicangliangbianhua'] = df.loc[:, Name1] - df.loc[:, 'chicagliang1']
 
         # 资金变动=持仓量*今日收盘价
         def movementOfFunds(Name1, Name2):
-            df['资金变动'] = df.loc[:, Name1] * df.loc[:, Name2]
+            df['zijinbiandong'] = df.loc[:, Name1] * df.loc[:, Name2]
 
         # 收盘涨跌幅度
         def upAndDownClose(Name1, Name2):
-            df['涨跌幅(收盘价)'] = (df.loc[:, Name1] / df.loc[:, Name2])
+            df['zhangdiefu_shoupanjia'] = (df.loc[:, Name1] / df.loc[:, Name2])
             # 分类（0或1）
 
         # 涨跌幅(结算价)
         def settlementPriceFluctuation(Name1, Name2):
-            df['涨跌幅(结算价)'] = (df.loc[:, Name1] / df.loc[:, Name2])
+            df['zhangdiefu_jiesuanjia'] = (df.loc[:, Name1] / df.loc[:, Name2])
 
         def classify(Name1, Name2):
-            df['分类'] = df.loc[:, Name1] - df.loc[:, Name2]
-            for i in range(len(df['分类'])):
-                if df.loc[i, '分类'] > 0:
-                    df.loc[i, '分类'] = 1
+            df['fenlei'] = df.loc[:, Name1] - df.loc[:, Name2]
+            for i in range(len(df['fenlei'])):
+                if df.loc[i, 'fenlei'] > 0:
+                    df.loc[i, 'fenlei'] = 1
                 else:
-                    df.loc[i, '分类'] = 0
+                    df.loc[i, 'fenlei'] = 0
 
         def contributionPrice(Name1, Name2):
             # df['价格变动贡献度']=(df.loc[:,Name1]/df.loc[:,Name2])*1000
-            df['价格变动贡献度'] = (df.loc[:, Name1] / df.loc[:, Name2])
+            df['jiagebiandonggongxiandu'] = (df.loc[:, Name1] / df.loc[:, Name2])
 
         def max_min(Name1):
 
@@ -81,30 +81,34 @@ def standardizationFunction(data_text_path,data_csv_path,stand_path):
             N_mean = df.loc[:, Name2].mean()  # np.mean(df.loc[:,Name2], axis=0)  #df.loc[:,Name2].mean()
             df[Name2] = (N_std - N_mean) / N_std
 
-        changeOfInventory('持仓量')
-        upAndDownClose('涨跌(收盘价)', '前收盘')
-        contributionPrice('涨跌(收盘价)', '收盘价')
-        movementOfFunds('持仓量变化', '收盘价')
-        settlementPriceFluctuation('涨跌(结算价)', '前结算价')
-        norm_NM("开盘价")
-        norm_NM("最高价")
-        norm_NM("最低价")
-        norm_NM("收盘价")
-        norm_NM("前收盘")
-        norm_NM("前结算价")
-        norm_NM("结算价")
+        # changeOfInventory('持仓量')
+        upAndDownClose('zhangdie_shoupanjia', 'qianshoupan')
+        contributionPrice('zhangdie_shoupanjia', 'shoupanjia')
+        movementOfFunds('chicangliangbianhua', 'shoupanjia')
+        settlementPriceFluctuation('zhangdie_jiesuanjia', 'qianjiesuanjia')
+        norm_NM("kaipanjia")
+        norm_NM("zuigaojia")
+        norm_NM("zuidijia")
+        norm_NM("zuidijia")
+        norm_NM("qianshoupan")
+        norm_NM("qianjiesuanjia")
+        norm_NM("jiesuanjia")
 
-        MA(ma_list, '收盘价')
-        norm_NM('涨跌幅(结算价)')
-        norm_NM('涨跌幅(收盘价)')
-        norm_NM('持仓量变化')
-        norm_NM('资金变动')
-        norm_NM('价格变动贡献度')
-        classify('收盘价', '前收盘')
+        MA(ma_list, 'shoupanjia')
+        norm_NM('zhangdiefu_jiesuanjia')
+        norm_NM('zhangdiefu_shoupanjia')
+        norm_NM('chicangliangbianhua')
+        norm_NM('zijinbiandong')
+        norm_NM('jiagebiandonggongxiandu')
+        classify('shoupanjia', 'qianshoupan')
 
-        df = df.loc[:, ['前收盘', '开盘价', '最高价', '最低价', '收盘价', '成交量', '成交额', '成交笔数', '涨跌(收盘价)',
-                        '涨跌幅(收盘价)', '振幅(收盘价)', '均价', '持仓量', '持仓量变化', '前结算价', '结算价', '涨跌(结算价)', '涨跌幅(结算价)',
-                        '最近交易日期', '市场最近交易日', 'MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60', '持仓量变化', '资金变动',
-                        '价格变动贡献度', '分类']]
+        df = df.loc[:,
+             ['heyue', 'riqi', 'qianshoupan', 'kaipanjia', 'zuigaojia', 'zuidijia', 'shoupanjia', 'chengjiaoliang',
+              'chengjiaoe', 'chengjiaobishu', 'zhangdie_shoupanjia',
+              'zhangdiefu_shoupanjia', 'zhengfu_shoupanjia', 'junjia', 'chicangliang', 'qianjiesuanjia', 'jiesuanjia',
+              'zhangdie_jiesuanjia', 'zhangdiefu_jiesuanjia',
+              'zuijinjiaoyiriqi', 'shichangzuijinjiaoyiri', 'MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60',
+              'chicangliangbianhua', 'zijinbiandong',
+              'jiagebiandonggongxiandu', 'fenlei']]
         df = df.fillna(0)
-        df.to_csv('stand/%s.csv' % dff.iloc[i, 0], encoding='gbk', index=False)
+        df.to_csv(stand_path+'/%s.csv' % dff.iloc[i, 0], encoding='gbk', index=False)

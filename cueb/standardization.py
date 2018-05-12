@@ -26,6 +26,7 @@ def standardizationFunction(code_table_path,data_csv_path,stand_path):
             print(" norm %s start" %Name)
             mid = df.loc[:, Name].median()
             qua = df.loc[:, Name].quantile(.75) - df.loc[:, Name].quantile(.25)
+            # TODO
             df[Name] = (1.0 / 2) * ((df.loc[:, Name] - mid) / qua)
 
         #开盘价

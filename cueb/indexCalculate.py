@@ -12,7 +12,7 @@ code_table_path: 码表文件路径
 feature_path_path：指标文件夹路径
 data_csv_path：csv文件夹
 '''
-def featureCalFunction(code_table_path,data_csv_path,feature_path):
+def indexCalFunction(code_table_path,data_csv_path,feature_path):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
 
@@ -33,8 +33,9 @@ def featureCalFunction(code_table_path,data_csv_path,feature_path):
                 mid = df.loc[:, 'MA_' + str(ma)].median()
                 # mid = np.median(df.loc[:,Name])
                 qua = df.loc[:, 'MA_' + str(ma)].quantile(.75) - df.loc[:, 'MA_' + str(ma)].quantile(.25)
-                norm_1 = (1.0 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
-                df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
+                if(qua != 0):
+                    norm_1 = (1.0 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
+                    df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
 
         def changeOfInventory(Name1):
             df['chicangliang1'] = df.loc[:, Name1].shift(1)

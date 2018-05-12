@@ -62,7 +62,7 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
         index_len = len(X_train[0])
         # 输出指标的个数
         print("\n")
-        print("处理%s.csv" % dff.iloc[f, 0])
+        print("处理%s.csv---------------------------------------------------------------" % dff.iloc[f, 0])
         print("指标个数:"+str(index_len))
         result = {}
         # 排列组合遍历

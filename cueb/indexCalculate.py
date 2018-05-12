@@ -33,7 +33,7 @@ def featureCalFunction(code_table_path,data_csv_path,feature_path):
                 mid = df.loc[:, 'MA_' + str(ma)].median()
                 # mid = np.median(df.loc[:,Name])
                 qua = df.loc[:, 'MA_' + str(ma)].quantile(.75) - df.loc[:, 'MA_' + str(ma)].quantile(.25)
-                norm_1 = (1 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
+                norm_1 = (1.0 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
                 df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
 
         def changeOfInventory(Name1):
@@ -122,4 +122,3 @@ def featureCalFunction(code_table_path,data_csv_path,feature_path):
               'jiagebiandonggongxiandu', 'fenlei']]
         df = df.fillna(0)
         df.to_csv(feature_path+'/%s.csv' % dff.iloc[i, 0], encoding='gbk', index=False)
-        break

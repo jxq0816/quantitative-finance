@@ -31,7 +31,7 @@ def indexExtractFunction(data_source_path,data_stand_path,data_index_path):
         df = pd.read_csv(data_stand_path+'/%s.csv' % filename, encoding='gbk')
         df.sort_index(inplace=True)
         # print(df)
-        #df = df.loc[:, ['MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60', 'chicangliangbianhua', 'zijinbiandong', 'jiagebiandonggongxiandu', 'fenlei']]
-        df = df.loc[:, ['MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60','fenlei']]
+        df = df.loc[:, ['MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60', 'chicangliangbianhua', 'zijinbiandong', 'jiagebiandonggongxiandu', 'fenlei']]
+        #df = df.loc[:, ['MA_5', 'MA_10', 'MA_20', 'MA_30', 'MA_40', 'MA_60','fenlei']]
         df.to_csv(data_index_path+'/%s.csv' % filename, encoding='gbk', index=False)
     print("The end")

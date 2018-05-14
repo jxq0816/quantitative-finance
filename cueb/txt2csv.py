@@ -37,4 +37,8 @@ def txt2csvFunction(data_source_path,data_text_path,data_csv_path):
         df.sort_index(inplace=True)
         #print(df)
         df = df.replace('None', 0)
+        for j in range(df.shape[0]):
+            if df.loc[j, 'kaipanjia'] == 0:
+                # print(df.shape[1])
+                df = df.drop([j])
         df.to_csv(data_csv_path+'/%s.csv'%dff.iloc[i,0],encoding='gbk',index=False)

@@ -18,7 +18,7 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
 
     for i in range(len(dff.loc[:, 0])):
         # dff=np.array(dff)
-        # print(dff[i])
+        print(dff.iloc[i, 0])
         df = pd.read_csv(data_csv_path+'/%s.csv' % dff.iloc[i, 0], encoding='gbk')
         df.sort_index(inplace=True)
 

@@ -12,6 +12,8 @@ code_table_path: 码表文件路径
 feature_path_path：指标文件夹路径
 data_csv_path：csv文件夹
 '''
+zero = 0.000000000001
+
 def indexCalFunction(code_table_path,data_csv_path,feature_path):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
@@ -34,8 +36,9 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
                 # mid = np.median(df.loc[:,Name])
                 qua = df.loc[:, 'MA_' + str(ma)].quantile(.75) - df.loc[:, 'MA_' + str(ma)].quantile(.25)
                 # TODO
-                norm_1 = (1.0 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
-                df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
+                if abs(qua) > zero:
+                    norm_1 = (1.0 / 2) * ((df.loc[:, 'MA_' + str(ma)] - mid) / qua)
+                    df['MA_' + str(ma)] = (100 * norm.cdf(norm_1) - 60)
 
         def changeOfInventory(Name1):
             df['chicangliang1'] = df.loc[:, Name1].shift(1)
@@ -49,14 +52,14 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
         # step1 收盘涨跌幅度 'zhangdie_shoupanjia', 'qianshoupan'
         def upAndDownClose(Name1, Name2):
             for i in range(len(df[Name2])):
-                if df.loc[i, Name2] != 0:
+                if df.loc[i, Name2] > zero:
                     df.loc[i,'zhangdiefu_shoupanjia'] = (df.loc[i, Name1] / df.loc[i, Name2])
             #print(df['zhangdiefu_shoupanjia'])
 
         # 涨跌幅(结算价)
         def settlementPriceFluctuation(Name1, Name2):
             for i in range(len(df[Name2])):
-                if df.loc[i, Name2] != 0:
+                if abs(df.loc[i, Name2]) >= zero:
                     df.loc[i,'zhangdiefu_jiesuanjia'] = (df.loc[i, Name1] / df.loc[i, Name2])
             #print(df['zhangdiefu_jiesuanjia'])
 
@@ -71,7 +74,7 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
         def contributionPrice(Name1, Name2):
             # df['价格变动贡献度']=(df.loc[:,Name1]/df.loc[:,Name2])*1000
             for i in range(len(df[Name2])):
-                if df.loc[i, Name2] != 0:
+                if abs(df.loc[i, Name2]) > zero:
                     df.loc[i,'jiagebiandonggongxiandu'] = (df.loc[i, Name1] / df.loc[i, Name2])
             #print(df['jiagebiandonggongxiandu'])
 
@@ -81,7 +84,7 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
             N_max = df.loc[:, Name1].max()
             N_min = df.loc[:, Name1].min()
             #N_max - N_min==0 需要判断
-            if (N_max - N_min) != 0:
+            if abs(N_max - N_min) > zero:
                 df[Name1] = (df.loc[:, Name1] - N_min) / (N_max - N_min)
 
         def std_mean(Name2):
@@ -89,7 +92,8 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
             N_mean = df.loc[:, Name2].mean()  # np.mean(df.loc[:,Name2], axis=0)  #df.loc[:,Name2].mean()
             # N_std==0 判断
             # TODO
-            df[Name2] = (df.loc[:,Name2] - N_mean) / N_std
+            if abs(N_mean) > zero :
+                df[Name2] = (df.loc[:,Name2] - N_mean) / N_std
 
         #changeOfInventory('chicangliang')
 

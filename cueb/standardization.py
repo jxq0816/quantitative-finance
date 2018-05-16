@@ -11,7 +11,10 @@ code_table_path: 码表文件路径
 data_stand_path：数据标准化文件夹路径
 data_csv_path：csv文件夹
 '''
-def standardizationFunction(code_table_path,data_csv_path,stand_path):
+
+zero = 0.000000000001
+
+def standardizationFunction(code_table_path, data_csv_path, stand_path):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
 
@@ -23,11 +26,16 @@ def standardizationFunction(code_table_path,data_csv_path,stand_path):
         df.sort_index(inplace=True)
 
         def norm_NM(Name):
-            print(" norm %s start" %Name)
+            print("start norm %s" %Name)
             mid = df.loc[:, Name].median()
             qua = df.loc[:, Name].quantile(.75) - df.loc[:, Name].quantile(.25)
+            print(qua)
             # TODO
-            df[Name] = (1.0 / 2) * ((df.loc[:, Name] - mid) / qua)
+            if abs(qua) > zero:
+                df[Name] = (1.0 / 2) * ((df.loc[:, Name] - mid) / qua)
+                print("end of norm %s" % Name)
+            else :
+                print("skip norm %s" %Name)
 
         #开盘价
         norm_NM("kaipanjia")
@@ -43,13 +51,13 @@ def standardizationFunction(code_table_path,data_csv_path,stand_path):
         norm_NM("qianjiesuanjia")
         #结算价
         norm_NM("jiesuanjia")
-        #涨跌幅(结算价)
+        #涨跌幅(结算价) TODO
         norm_NM('zhangdiefu_jiesuanjia')
         #涨跌幅(收盘价)
         norm_NM('zhangdiefu_shoupanjia')
-        #持仓量变化
+        #持仓量变化 TODO
         norm_NM('chicangliangbianhua')
-        #资金变动
+        #资金变动 TODO
         norm_NM('zijinbiandong')
         #价格变动贡献度
         norm_NM('jiagebiandonggongxiandu')

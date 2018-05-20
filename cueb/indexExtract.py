@@ -15,7 +15,10 @@ data_source_path:品类文件路径
 data_stand_path：数据标准化文件夹路径
 data_index_path：数据指标抽取目标文件夹
 '''
-def indexExtractFunction(data_source_path,data_stand_path,data_index_path):
+
+
+def index_extract_function(data_source_path, data_stand_path, data_index_path):
+
     dff = pd.read_csv(data_source_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
 

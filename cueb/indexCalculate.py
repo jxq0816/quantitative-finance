@@ -14,13 +14,14 @@ data_csv_path：csv文件夹
 '''
 zero = 0.000000000001
 
-def indexCalFunction(code_table_path,data_csv_path,feature_path):
+
+def index_cal_function(code_table_path,data_csv_path,feature_path):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
 
     for i in range(len(dff.loc[:, 0])):
         # dff=np.array(dff)
-        print(dff.iloc[i, 0])
+        print("calculate category %s" % dff.iloc[i, 0])
         df = pd.read_csv(data_csv_path+'/%s.csv' % dff.iloc[i, 0], encoding='gbk')
         df.sort_index(inplace=True)
 
@@ -77,23 +78,6 @@ def indexCalFunction(code_table_path,data_csv_path,feature_path):
                 if abs(df.loc[i, Name2]) > zero:
                     df.loc[i,'jiagebiandonggongxiandu'] = (df.loc[i, Name1] / df.loc[i, Name2])
             #print(df['jiagebiandonggongxiandu'])
-
-
-        def max_min(Name1):
-
-            N_max = df.loc[:, Name1].max()
-            N_min = df.loc[:, Name1].min()
-            #N_max - N_min==0 需要判断
-            if abs(N_max - N_min) > zero:
-                df[Name1] = (df.loc[:, Name1] - N_min) / (N_max - N_min)
-
-        def std_mean(Name2):
-            N_std = df.loc[:, Name2].std()  # np.mean(df.loc[:,Name2], axis=0)#  df.loc[:,Name2].std()
-            N_mean = df.loc[:, Name2].mean()  # np.mean(df.loc[:,Name2], axis=0)  #df.loc[:,Name2].mean()
-            # N_std==0 判断
-            # TODO
-            if abs(N_mean) > zero :
-                df[Name2] = (df.loc[:,Name2] - N_mean) / N_std
 
         #changeOfInventory('chicangliang')
 

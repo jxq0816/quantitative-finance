@@ -15,7 +15,9 @@ data_source_path:品类文件路径
 data_text_path：数据源text文件夹路径
 data_csv_path：数据CSV文件夹路径
 '''
-def txt2csvFunction(data_source_path,data_text_path,data_csv_path):
+
+
+def txt2csv_function(data_source_path,data_text_path,data_csv_path):
     dff = pd.read_csv(data_source_path,header=None)
     dff.sort_index(inplace=True)
 

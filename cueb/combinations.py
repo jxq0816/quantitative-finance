@@ -26,7 +26,9 @@ function_name：所调用的训练方法
 test_size_param:测试数据所占百分比
 hit_rate：命中率过滤条件
 '''
-def combinationFunction(data_source_path,index_path,rs_path,function_name,test_size_param,hit_rate):
+
+
+def combination_function(data_source_path, index_path, rs_path, function_name, test_size_param, hit_rate):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历
@@ -62,24 +64,24 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
         index_len = len(X_train[0])
         # 输出指标的个数
         print("\n")
-        print("处理%s.csv---------------------------------------------------------------" % dff.iloc[f, 0])
-        print("指标个数:"+str(index_len))
+        print("开始训练品类%s" % dff.iloc[f, 0])
+        #print("指标个数:"+str(index_len))
         result = {}
         # 排列组合遍历
         for i in range(1, index_len + 1):
             # 生成集合个数为i的组合
-            print("开始处理%s个指标的组合" %i)
+            #print("开始处理%s个指标的组合" %i)
             combins = [c for c in combinations(range(index_len), i)]
-            print(combins)
+            #print(combins)
             # 组合的个数
             comLen = len(combins)
-            print("组合个数%s" %comLen)
+            #print("组合个数%s" %comLen)
 
             # 当前排列进行遍历
             for j in range(comLen):
                 # 对当前数组中的数进行赋值
-                print("------------------------")
-                print(combins[j])
+                #print("------------------------")
+                #print(combins[j])
                 # 初始化训练集
                 x_train = np.zeros(shape=(len(X_train[:, 0]), i))
                 # 初始化测试集
@@ -95,16 +97,22 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
 
                 if(function_name == 'DecisionTreeClassifier'):
                     clf = DecisionTreeClassifier().fit(x_train, y_train)
+
                 if(function_name == 'KNeighborsClassifier'):
                     clf = KNeighborsClassifier().fit(x_train, y_train)
+
                 if(function_name == 'GaussianNB'):
                     clf = GaussianNB().fit(x_train, y_train)
+
                 if(function_name == 'LogisticRegression'):
                     clf = LogisticRegression().fit(x_train, y_train)
+
                 if (function_name == 'RandomForestClassifier'):
                     clf = RandomForestClassifier().fit(x_train, y_train)
+
                 if (function_name == 'ExtraTreesClassifier'):
                     clf = ExtraTreesClassifier().fit(x_train, y_train)
+
                 if (function_name == 'BaggingClassifier'):
                     clf = BaggingClassifier(base_estimator= DecisionTreeClassifier()).fit(x_train, y_train)
 
@@ -117,11 +125,11 @@ def combinationFunction(data_source_path,index_path,rs_path,function_name,test_s
                         s = s + 1
                         #print(s)
                 test_len=len(y_test)
-                print("测试数据个数%s" %test_len)
-                print("命中数据个数%s" %s)
+                #print("测试数据个数%s" %test_len)
+                #print("命中数据个数%s" %s)
                 rate = s / test_len
                 if rate >= hit_rate:
-                    print("命中比例%s" %rate)
+                    #print("命中比例%s" %rate)
                     # 将combins[j]：rate 存入hashMap
                     result[combins[j]] = rate
                 del (x_train)

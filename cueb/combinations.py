@@ -25,10 +25,12 @@ rs_path：结果集存储文件夹路径
 function_name：所调用的训练方法
 test_size_param:测试数据所占百分比
 hit_rate：命中率过滤条件
+trend {1:涨 0：跌}
 '''
+zero = 0.000000000001
 
 
-def combination_function(data_source_path, index_path, rs_path, function_name, test_size_param, hit_rate):
+def combination_function(data_source_path, index_path, rs_path, function_name, test_size_param, hit_rate, trend):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历
@@ -67,6 +69,7 @@ def combination_function(data_source_path, index_path, rs_path, function_name, t
         print("开始训练品类%s" % dff.iloc[f, 0])
         #print("指标个数:"+str(index_len))
         result = {}
+        fenlei = {}
         # 排列组合遍历
         for i in range(1, index_len + 1):
             # 生成集合个数为i的组合
@@ -121,7 +124,7 @@ def combination_function(data_source_path, index_path, rs_path, function_name, t
                 s = 0
                 for ii in range(0, len(y_test)):
                     #print(str(a[ii])+"->"+str(y_test[ii]))
-                    if a[ii] == y_test[ii]:
+                    if a[ii] == y_test[ii] and abs(y_test[ii]-trend) < zero:
                         s = s + 1
                         #print(s)
                 test_len=len(y_test)
@@ -144,6 +147,6 @@ def combination_function(data_source_path, index_path, rs_path, function_name, t
         sortedItems = sorted(items, key=lambda x: x[1], reverse=True)
         # print(sortedItems)
         sorted_rs = pd.DataFrame(sortedItems)
-        sorted_rs.to_csv(rs_path+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
+        sorted_rs.to_csv(rs_path+'/'+str(trend)+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
         #end of f
     print("The end")

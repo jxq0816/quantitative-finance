@@ -12,9 +12,8 @@ code_file_path = "source/variety.txt"
 #随机森林
 #cueb.combinations.combinationFunction(code_file_path,'index','result/rs-random-forest','RandomForestClassifier',0.75)
 # 决策树
-#cueb.combinations.combination_function(code_file_path,'index','result/rs-decision-tree','DecisionTreeClassifier',0.3,0.75,1)
-
 cueb.combinations.combination_function(code_file_path,'index','result/rs-decision-tree','DecisionTreeClassifier',0.3,0.75,0)
+cueb.combinations.combination_function(code_file_path,'index','result/rs-decision-tree','DecisionTreeClassifier',0.3,0.75,1)
 #KNN
 #cueb.combinations.combinationFunction(code_file_path,'index','result/rs-knn','KNeighborsClassifier',0.3,0.75)
 #贝叶斯

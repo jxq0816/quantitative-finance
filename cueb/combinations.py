@@ -122,15 +122,17 @@ def combination_function(data_source_path, index_path, rs_path, function_name, t
                 a = clf.predict(x_test)
 
                 s = 0
+                root = 0
                 for ii in range(0, len(y_test)):
                     #print(str(a[ii])+"->"+str(y_test[ii]))
                     if a[ii] == y_test[ii] and abs(y_test[ii]-trend) < zero:
                         s = s + 1
-                        #print(s)
-                test_len=len(y_test)
+                    if abs(y_test[ii]-trend) < zero :
+                        root = root + 1
+                #test_len=len(y_test)
                 #print("测试数据个数%s" %test_len)
                 #print("命中数据个数%s" %s)
-                rate = s / test_len
+                rate = s / root
                 if rate >= hit_rate:
                     #print("命中比例%s" %rate)
                     # 将combins[j]：rate 存入hashMap
@@ -143,10 +145,11 @@ def combination_function(data_source_path, index_path, rs_path, function_name, t
             #break
         # 转为数组
         items = result.items()
-        # 数组排序
-        sortedItems = sorted(items, key=lambda x: x[1], reverse=True)
-        # print(sortedItems)
-        sorted_rs = pd.DataFrame(sortedItems)
-        sorted_rs.to_csv(rs_path+'/'+str(trend)+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
-        #end of f
+        if len(items) !=0 :
+            # 数组排序
+            sortedItems = sorted(items, key=lambda x: x[1], reverse=True)
+            # print(sortedItems)
+            sorted_rs = pd.DataFrame(data=sortedItems,columns=['combination','rate'])
+            sorted_rs.to_csv(rs_path+'/'+str(trend)+'/%s.csv' % dff.iloc[f, 0], encoding='gbk', index=False)
+            #end of f
     print("The end")

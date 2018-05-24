@@ -2,22 +2,23 @@
 """
 Created on Thu Apr 12 10:01:34 2018
 
-@author:王钊
+@author:xingqijiang
 """
 from __future__ import division
 import pandas as pd
 import os
-from pandas.core.frame import DataFrame
 
 
 '''
 code_table_path:数据源文件路径
-trend_path：分类文件夹路径
+trend_path：涨跌文件夹路径
+rs_path：总排序存储路径
+trend：【1：涨 0：跌】
 '''
 zero = 0.000000000001
 
 
-def union_category_function(code_table_path, trend_path, rs_path, trend):
+def result_sort_function(code_table_path, trend_path, rs_path, trend):
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)
     all = pd.DataFrame(columns=['category', 'combination', 'rate', 'trend'])
@@ -26,9 +27,9 @@ def union_category_function(code_table_path, trend_path, rs_path, trend):
         # dff=np.array(dff)
         category = dff.iloc[i, 0]
         file = trend_path+"/"+category+".csv"
-        print file
+        #print file
         if os.path.exists(file):
-            print("union category %s" % category)
+            print("category %s" % category)
             df = pd.read_csv(trend_path+'/%s.csv' % category, encoding='gbk')
             df.sort_index(inplace=True)
             column_size=df.columns.size

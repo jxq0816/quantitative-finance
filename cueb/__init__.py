@@ -1,6 +1,6 @@
-import combinations
-import standardization
+import train_model
+import index_standardization
 import txt2csv
-import indexExtract
-import indexCalculate
-import union_category
+import index_extract
+import index_calculate
+import result_sort

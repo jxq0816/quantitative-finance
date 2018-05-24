@@ -30,7 +30,7 @@ trend {1:涨 0：跌}
 zero = 0.000000000001
 
 
-def combination_function(data_source_path, index_path, rs_path, function_name, test_size_param, hit_rate, trend):
+def train_model_function(data_source_path, index_path, rs_path, function_name, test_size_param, hit_rate, trend):
     dff = pd.read_csv(data_source_path, header=None)
     dff.sort_index(inplace=True)
     # 文件遍历

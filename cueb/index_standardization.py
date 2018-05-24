@@ -15,7 +15,7 @@ stand_formula_type:标准化公式{1：4分距，2：最大最小方法，3：�
 zero = 0.000000000001
 
 
-def standardization_function(code_table_path, data_csv_path, stand_path,stand_formula_type):
+def index_standardization_function(code_table_path, data_csv_path, stand_path,stand_formula_type):
 
     dff = pd.read_csv(code_table_path, encoding='gbk', header=None)
     dff.sort_index(inplace=True)

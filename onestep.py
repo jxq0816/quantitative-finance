@@ -1,11 +1,11 @@
 # -- coding: UTF-8 --
 import cueb
 
-#code_file_path = "/Sourcedata/Codetable/variety.txt"
-#souce_data_path = "/Sourcedata/Future/Day"
+code_file_path = "/Sourcedata/Codetable/variety.txt"
+souce_data_path = "/Sourcedata/Future/Day"
 
-code_file_path = "source/variety.txt"
-souce_data_path = "data-text"
+#code_file_path = "source/variety.txt"
+#souce_data_path = "data-text"
 
 
 # 将text文件转为CSV文件
@@ -30,6 +30,6 @@ cueb.train_model.train_model_function(code_file_path, 'index', 'result/rs-decisi
 print ("训练模型 end")
 
 # 总排序
-cueb.result_sort.result_sort_function('source/variety.txt', 'result/rs-decision-tree/0', 'result/rs-decision-tree', '0')
-cueb.result_sort.result_sort_function('source/variety.txt', 'result/rs-decision-tree/1', 'result/rs-decision-tree', '1')
+cueb.result_sort.result_sort_function(code_file_path, 'result/rs-decision-tree/0', 'result/rs-decision-tree', '0')
+cueb.result_sort.result_sort_function(code_file_path, 'result/rs-decision-tree/1', 'result/rs-decision-tree', '1')
 print ("总排序 end")

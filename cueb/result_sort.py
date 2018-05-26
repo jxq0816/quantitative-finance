@@ -34,12 +34,12 @@ def result_sort_function(code_table_path, trend_path, rs_path, trend):
             df.sort_index(inplace=True)
             column_size=df.columns.size
             if column_size != 0:
-                for j in range(len(df.loc[:, 'combination'])):
-                    all.loc[cnt,'category'] = category
-                    all.loc[cnt,'combination'] = df.loc[j, 'combination']
-                    all.loc[cnt, 'rate'] = df.loc[j, 'rate']
-                    all.loc[cnt, 'trend'] = trend
-                    cnt = cnt+1
+                #for j in range(len(df.loc[:, 'combination'])):
+                all.loc[cnt,'category'] = category
+                all.loc[cnt,'combination'] = df.loc[0, 'combination']
+                all.loc[cnt, 'rate'] = df.loc[0, 'rate']
+                all.loc[cnt, 'trend'] = trend
+                cnt = cnt+1
     all.sort_values(by='rate', axis=0, ascending=False)
     all.to_csv(rs_path + '/all'+trend+'.csv', encoding='gbk', index=False)
     print("The end")

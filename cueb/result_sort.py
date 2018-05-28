@@ -40,6 +40,6 @@ def result_sort_function(code_table_path, trend_path, rs_path, trend):
                 all.loc[cnt, 'rate'] = df.loc[0, 'rate']
                 all.loc[cnt, 'trend'] = trend
                 cnt = cnt+1
-    all.sort_values(by='rate', axis=0, ascending=False)
+    all = all.sort_values(by='rate',ascending=False)
     all.to_csv(rs_path + '/all'+trend+'.csv', encoding='gbk', index=False)
     print("The end")

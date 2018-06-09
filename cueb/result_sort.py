@@ -41,5 +41,5 @@ def result_sort_function(code_table_path, trend_path, rs_path, trend):
                 all.loc[cnt, 'trend'] = trend
                 cnt = cnt+1
     all = all.sort_values(by='rate',ascending=False)
-    all.to_csv(rs_path + '/all'+trend+'.csv', encoding='gbk', index=False)
+    all.to_csv(rs_path + '/sort'+trend+'.csv', encoding='gbk', index=False)
     print("The end")

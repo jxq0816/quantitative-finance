@@ -66,7 +66,7 @@ def train_model_function(data_source_path, index_path, rs_path, function_name, t
         index_len = len(X_train[0])
         # 输出指标的个数
         print("\n")
-        print("开始训练品类%s" % dff.iloc[f, 0])
+        print("start train %s" % dff.iloc[f, 0])
         #print("指标个数:"+str(index_len))
         result = {}
         fenlei = {}

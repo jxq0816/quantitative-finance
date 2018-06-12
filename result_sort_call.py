@@ -7,9 +7,9 @@ Created on Thu Apr 12 09:47:10 2018
 
 import cueb
 
-category_file_path = "/Sourcedata/Codetable/variety.txt"
+#category_file_path = "/Sourcedata/Codetable/variety.txt"
 
-#category_file_path = 'source/variety.txt'
+category_file_path = 'source/variety.txt'
 
 trend_0_path = 'result/rs-logistic-regression/0'
 

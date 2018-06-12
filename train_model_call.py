@@ -6,9 +6,9 @@ Created on Thu Apr 12 09:47:10 2018
 """
 import cueb
 
-# code_file_path = "source/variety.txt"
+category_file_path = "source/variety.txt"
 
-category_file_path = "/Sourcedata/Codetable/variety.txt"
+#category_file_path = "/Sourcedata/Codetable/variety.txt"
 
 index_path = "index"
 

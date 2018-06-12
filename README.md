@@ -13,3 +13,5 @@
 5、 train_model.py 训练模型
 
 6、 result_sort_call.py 总排序
+
+7、 result_distinct_call.py 提取前10个涨跌品种

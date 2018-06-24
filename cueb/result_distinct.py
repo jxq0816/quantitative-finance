@@ -20,9 +20,7 @@ zero = 0.000000000001
 def result_distinct_function(ascend_path, decline_path, rs_path):
     ascend = pd.read_csv(ascend_path, encoding='gbk', header=None)
     decline = pd.read_csv(decline_path, encoding='gbk', header=None)
-
-
-    all = pd.DataFrame(columns=['category', 'combination', 'rate', 'trend'])
+    ascend_rs = pd.DataFrame(columns=['category', 'combination', 'rate', 'trend'])
     cnt = 0
     ascend_dic = {}
     double_dic = {}
@@ -43,15 +41,17 @@ def result_distinct_function(ascend_path, decline_path, rs_path):
             print("valid %s" % ascend_category)
             ascend_dic[ascend_category] = 1
             cnt = cnt + 1
-            all.loc[cnt, 'category'] = ascend_category
-            all.loc[cnt, 'combination'] = ascend.loc[i, 1]
-            all.loc[cnt, 'rate'] = ascend.loc[i, 2]
-            all.loc[cnt, 'trend'] = ascend.loc[i, 3]
+            ascend_rs.loc[cnt, 'category'] = ascend_category
+            ascend_rs.loc[cnt, 'combination'] = ascend.loc[i, 1]
+            ascend_rs.loc[cnt, 'rate'] = ascend.loc[i, 2]
+            ascend_rs.loc[cnt, 'trend'] = ascend.loc[i, 3]
 
         if cnt >= 10:
             print("ascend end")
             break
+    ascend_rs.to_csv(rs_path + '/ascent-sort.csv', encoding='gbk', index=False)
     print("decent----------------------------------------------------- ")
+    decline_rs = pd.DataFrame(columns=['category', 'combination', 'rate', 'trend'])
     for k in range(1, len(decline.loc[:, 0])):
 
         decline_category = decline.iloc[k, 0]
@@ -60,15 +60,14 @@ def result_distinct_function(ascend_path, decline_path, rs_path):
 
             print("valid %s" % decline_category)
             cnt = cnt + 1
-            all.loc[cnt, 'category'] = decline_category
-            all.loc[cnt, 'combination'] = decline.loc[k, 1]
-            all.loc[cnt, 'rate'] = decline.loc[k, 2]
-            all.loc[cnt, 'trend'] = decline.loc[k, 3]
+            decline_rs.loc[cnt, 'category'] = decline_category
+            decline_rs.loc[cnt, 'combination'] = decline.loc[k, 1]
+            decline_rs.loc[cnt, 'rate'] = decline.loc[k, 2]
+            decline_rs.loc[cnt, 'trend'] = decline.loc[k, 3]
         else:
             print("delete %s " % decline_category)
 
         if cnt >= 20:
             break
-
-    all.to_csv(rs_path + '/sort.csv', encoding='gbk', index=False)
+    decline_rs.to_csv(rs_path + '/decline-sort.csv', encoding='gbk', index=False)
     print("The end")

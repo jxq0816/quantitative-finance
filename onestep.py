@@ -14,7 +14,7 @@ souce_data_path = "/Sourcedata/Future/Day"
 
 
 # 将text文件转为CSV文件
-cueb.txt2csv.txt2csv_function(code_file_path,souce_data_path,'data-csv')
+cueb.txt2csv.txt2csv_function(code_file_path,souce_data_path,'data-csv',"2018-06-01")
 print ("将text文件转为CSV文件 end")
 
 # 指标的计算

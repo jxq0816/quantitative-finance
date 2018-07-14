@@ -17,7 +17,7 @@ data_csv_path：数据CSV文件夹路径
 '''
 
 
-def txt2csv_function(data_source_path,data_text_path,data_csv_path):
+def txt2csv_function(data_source_path, data_text_path, data_csv_path, date_limit):
     dff = pd.read_csv(data_source_path,header=None)
     dff.sort_index(inplace=True)
 
@@ -36,10 +36,16 @@ def txt2csv_function(data_source_path,data_text_path,data_csv_path):
                                                                                   'zhengfu_shoupanjia', 'junjia', 'chicangliang', 'chicangliangbianhua',
                                                                                   'qianjiesuanjia', 'jiesuanjia', 'zhangdie_jiesuanjia', 'zhangdiefu_jiesuanjia',
                                                                                   'zuijinjiaoyiriqi', 'shichangzuijinjiaoyiri'])
+
+
         df.sort_index(inplace=True)
         #print(df)
         df = df.replace('None', 0)
         for j in range(df.shape[0]):
+            riqi = df.loc[j,"riqi"]
+            if riqi > date_limit:
+                df = df.drop([j])
+                continue
             if df.loc[j, 'kaipanjia'] == 0:
                 # print(df.shape[1])
                 df = df.drop([j])

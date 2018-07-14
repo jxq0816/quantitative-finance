@@ -6,11 +6,11 @@ Created on Thu Apr 12 09:47:10 2018
 """
 import cueb
 
-code_file_path = "/Sourcedata/Codetable/variety.txt"
-souce_data_path = "/Sourcedata/Future/Day"
+#code_file_path = "/Sourcedata/Codetable/variety.txt"
+#souce_data_path = "/Sourcedata/Future/Day"
 
-#code_file_path = "source/variety.txt"
-#souce_data_path = "data-text"
+code_file_path = "source/variety.txt"
+souce_data_path = "data-text"
 
 
 # 将text文件转为CSV文件
@@ -38,3 +38,9 @@ print ("训练模型 end")
 cueb.result_sort.result_sort_function(code_file_path, 'result/rs-decision-tree/0', 'result/rs-decision-tree', '0')
 cueb.result_sort.result_sort_function(code_file_path, 'result/rs-decision-tree/1', 'result/rs-decision-tree', '1')
 print ("总排序 end")
+
+# 去重
+trend_0_path = 'result/rs-decision-tree/sort0.csv'
+trend_1_path = 'result/rs-decision-tree/sort1.csv'
+out_path = 'result/rs-decision-tree'
+cueb.result_distinct.result_distinct_function(trend_1_path, trend_0_path, out_path)

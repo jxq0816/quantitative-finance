@@ -71,7 +71,8 @@ def train_model_function(data_source_path, index_path, rs_path, function_name, t
         result = {}
         fenlei = {}
         # 排列组合遍历
-        for i in range(1, index_len + 1):
+        size = 4 if index_len>4 else index_len
+        for i in range(1, size + 1):
             # 生成集合个数为i的组合
             #print("开始处理%s个指标的组合" %i)
             combins = [c for c in combinations(range(index_len), i)]

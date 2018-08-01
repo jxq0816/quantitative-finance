@@ -18,7 +18,7 @@ test_ratio = 0.3
 
 hit_ratio = 0.75
 
-classifier_function = "LogisticRegression"
+classifier_function = "GaussianNB"
 
 
 

@@ -133,7 +133,7 @@ def train_model_function(data_source_path, index_path, rs_path, function_name, t
                 #test_len=len(y_test)
                 #print("测试数据个数%s" %test_len)
                 #print("命中数据个数%s" %s)
-                if root < zero:
+                if root > zero:
                     rate = s / root
                     if rate >= hit_rate:
                         #print("命中比例%s" %rate)

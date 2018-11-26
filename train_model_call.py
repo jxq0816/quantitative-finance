@@ -12,13 +12,13 @@ category_file_path = "source/variety.txt"
 
 index_path = "index"
 
-rs_path = "result/rs-logistic-regression"
-
 test_ratio = 0.3
-
 hit_ratio = 0.75
 
 classifier_function = "GaussianNB"
+rs_path = "result/rs-logistic-regression"
+
+
 
 
 

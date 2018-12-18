@@ -26,7 +26,7 @@ def result_sort_function(code_table_path, trend_path, rs_path, trend):
     for i in range(len(dff.loc[:, 0])):
         # dff=np.array(dff)
         category = dff.iloc[i, 0]
-        file = trend_path+"/"+category+".csv"
+        file = trend_path+"/"+str(category)+".csv"
         #print file
         if os.path.exists(file):
             print("category %s" % category)

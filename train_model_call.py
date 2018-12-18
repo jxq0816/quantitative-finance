@@ -6,16 +6,16 @@ Created on Thu Apr 12 09:47:10 2018
 """
 import cueb
 
-category_file_path = "source/variety.txt"
+category_file_path = "source/variety2.txt"
 
 #category_file_path = "/Sourcedata/Codetable/variety.txt"
 
-index_path = "index"
+index_path = "train2Model"
 
 test_ratio = 0.3
 hit_ratio = 0.75
 
-classifier_function = "GaussianNB"
+classifier_function = "LogisticRegression"
 rs_path = "result/rs-logistic-regression"
 
 

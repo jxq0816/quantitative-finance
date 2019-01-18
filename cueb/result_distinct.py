@@ -46,7 +46,7 @@ def result_distinct_function(ascend_path, decline_path, rs_path):
             ascend_rs.loc[cnt, 'rate'] = ascend.loc[i, 2]
             ascend_rs.loc[cnt, 'trend'] = ascend.loc[i, 3]
 
-        if cnt >= 10:
+        if cnt >= 20:
             print("ascend end")
             break
     ascend_rs.to_csv(rs_path + '/ascent-sort.csv', encoding='gbk', index=False)
@@ -67,7 +67,7 @@ def result_distinct_function(ascend_path, decline_path, rs_path):
         else:
             print("delete %s " % decline_category)
 
-        if cnt >= 20:
+        if cnt >= 40:
             break
     decline_rs.to_csv(rs_path + '/decline-sort.csv', encoding='gbk', index=False)
     print("The end")
